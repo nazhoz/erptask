@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import './Style.scss'
 import Select from 'react-select';
+import Popup from "./components/Popup";
 
 
 const App = () => {
   const [selectedValue, setSelectedValue] = useState("");
   const [selectValue, setSelectValue] = useState("");
   const [selectsValue, setSelectsValue] = useState("");
+  const [showPopup, setShowPopup] = useState(false)
+  const [isDropdownDisabled, setIsDropdownDisabled] = useState(false);
 
   const options = ["option 1", "options 2", "options 3"];
 
@@ -32,6 +35,22 @@ const App = () => {
     border: 'none',
     outline: 'none',
     background: 'none',
+  }
+
+  // ================================== POPUP =======================================
+
+  const handleAddExceptionClick = ()=>{
+    setShowPopup(true)
+    setIsDropdownDisabled(true);
+  }
+
+  const handleClosePopup = ()=>{
+    setShowPopup(false)
+    setIsDropdownDisabled(false);
+  }
+
+  const handleSaveException = (popup)=>{
+    console.log('Popup :', popup)
   }
 
 
@@ -97,16 +116,18 @@ const App = () => {
         </div>
       </div>
 
+      
+
+          {/*============================ FIRST TABLE ==================================== */}
+
       <div className="table">
         <div className="table-head">
           <span>Service Details</span>
         </div>
 
-               {/*============================ FIRST TABLE ==================================== */}
-
         <div className="table-body">
       <table>
-        <thead>
+        <thead className="first-table-head">
           <tr>
             <th className="tableslno" style={thStyle}>
               <span className="firsttableno">Sl. No</span>
@@ -143,9 +164,13 @@ const App = () => {
           </tr>
         </tbody>
       </table>
+      {showPopup && (
+        <Popup onClose={handleClosePopup} onSave={handleSaveException}/>
+      )}
     </div>
       </div>
 
+      
               {/*============================ SECOND TABLE ==================================== */}
 
       <div className="table">
@@ -170,13 +195,14 @@ const App = () => {
               <Select className="TableSelectOption2" options={option} placeholder="Email" />
             </th>
             <th className="TableHead3" style={thStyle}>
-              <Select className="TableSelectOption3" options={option} placeholder="Pick Up" />
+              <Select className="TableSelectOption3" options={option} placeholder="PickUp" />
             </th>
             <th className="TableHead4" style={thStyle}>
               <Select className="TableSelectOption4" options={option} placeholder="Drop" />
             </th>
-            <th className="TableHead5" style={thStyle}>
-              <Select className="TableSelectOption5" options={option} placeholder="Add Exception" />
+            <th className="TableHead6" style={thStyle}>
+            <Select className="TableSelectOption6" options={option} isDisabled={isDropdownDisabled} placeholder="Add Exception" />
+              <button className="tableSelectOption6btn" onClick={handleAddExceptionClick} />
             </th>
           </tr>
         </thead>
@@ -190,6 +216,7 @@ const App = () => {
             <td>Data 1</td>           
             <td>Data 1</td>           
           </tr>
+          
         </tbody>
       </table>
     </div>
@@ -205,7 +232,7 @@ const App = () => {
         {/* </div> */}
       </div>
 
-
+      
     </div>
   );
 };
