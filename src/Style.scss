@@ -217,10 +217,11 @@
 
             thead{
                 // background-color: lightblue;
-                
+            }
 
+            tbody{
                 tr{
-
+                    gap: 10px;
                     .tableslno{
                         background-color: white;
                         
@@ -282,6 +283,93 @@
                         width:20%;
                         height: 10px;
                         .TableSelectOption5{
+                            width:100%;
+                            // font-size: 5px;
+                            cursor: pointer;
+                        }
+                    }
+                    .TableHead6{
+                        width:20%;
+                        height: 10px;
+                        .TableSelectOption6{
+                            width:100%;
+                            // font-size: 5px;
+                            position: relative;
+                            
+                        }
+                        .tableSelectOption6btn{
+                            position: absolute;
+                            margin-top: -2.5%;
+                            margin-left: -8.8%;
+                            width: 17.5%;
+                            height: 30px;
+                            outline: none;
+                            background:none;
+                            border: none;
+                            cursor: pointer;
+                        }
+                    }
+                    .tableslno1{
+                        background-color: white;
+                        
+                        .firsttableno1{
+                            background-color: white;
+                            border: 1px solid #B3B3B3;
+                            padding: 9.3px;
+                            border-radius: 5px;
+                            margin-right: 16px;
+                        }
+                    }
+                    
+                    .TableHead12{
+                        width: 22%;
+                        .TableSelectOption12{
+                            width:100%;
+                            // background-color: red;
+                            cursor: pointer;
+                        }
+                    }
+
+                    .TableHead7{
+                        width: 25%;
+                        height: 10px;
+                        .TableSelectOption7{
+                            width:100%;
+                            cursor: pointer;
+                        }
+                    }
+
+                    .TableHead8{
+                        width: 16%;
+                        height: 10px;
+                        .TableSelectOption8{
+                            width:100%;
+                            // font-size: 5px;
+                            cursor: pointer;
+                        }
+                    }
+                    .TableHead9{
+                        width: 7%;
+                        height: 10px;
+                        .TableSelectOption9{
+                            width:100%;
+                            // font-size: 5px;
+                            cursor: pointer;
+                        }
+                    }
+                    .TableHead0{
+                        width: 7%;
+                        height: 10px;
+                        .TableSelectOption0{
+                            width:100%;
+                            // font-size: 5px;
+                            cursor: pointer;
+                        }
+                    }
+                    .TableHead11{
+                        width:20%;
+                        height: 10px;
+                        .TableSelectOption11{
                             width:100%;
                             // font-size: 5px;
                             cursor: pointer;
