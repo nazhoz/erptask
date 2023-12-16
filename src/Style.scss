@@ -1,465 +1,581 @@
-.App{
-    width: 90%; 
-    margin-left: 70px;
-    margin-top: 20px;
+.App {
+  width: 95%;
+  margin-left: 35px;
+  margin-top: 20px;
+  background-color: #ececec62;
+  //=================== HEAD PART =======================
 
-    //=================== HEAD PART =======================
+  .headPart {
+    background-color: #078080;
+    height: 70px;
+    width: 100%;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fffffe;
+    font-size: 25px;
 
-    .headPart{
-        background-color: #FEC00F;
-        height: 90px;
-        width: 100%;
-        border-top-right-radius: 10px;
-        border-top-left-radius: 10px;
-        position: relative;
+    &.blur {
+      filter: blur(5px);
+    }
+
+    .offcanvasMenu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 30%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      z-index: 1;
+      transition: transform 0.3s ease;
+    }
+
+    &.open {
+      transform: translateX(0);
+    }
+
+    &.closed {
+      transform: translateX(-100%);
+    }
+  }
+
+  //========================= DROPDOWN ====================================
+
+  .container {
+    width: 100%;
+    height: 130px;
+    background-color: #ececec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    .firstInput {
+      width: 99%;
+      // background-color: aqua;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+
+      .DropDowns {
+        width: 50%;
+        height: 60px;
+        // background-color: teal;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        margin-bottom: 10px;
+
+        #dropdown option {
+          height: 100px;
+        }
+        .customerDetailsDrop {
+          width: 70%;
+          height: 35px;
+          outline: none;
+          border: none;
+          border-radius: 5px;
+          border: 1px solid lightgrey;
+          &::placeholder {
+            color: lightgrey;
+          }
+        }
+      }
+      .inputField {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        input {
+          width: 50%;
+          height: 30px;
+          outline: none;
+          border: none;
+          border-radius: 5px;
+          padding-left: 10px;
+          border: 1px solid lightgrey;
+
+          &::placeholder {
+            color: lightgray;
+            // padding-left: 10px;
+          }
+        }
+      }
+    }
+    .secondInput {
+      width: 99%;
+      // background-color: aqua;
+      height: 40px;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      .selectedoption {
+        // background-color: coral;
+        width: 50%;
+        height: 50px;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+
+        .customerDetailsDrop {
+          width: 70%;
+          height: 35px;
+          outline: none;
+          border: none;
+          border-radius: 5px;
+          border: 1px solid lightgrey;
+        }
+      }
+      .selectedoptions {
+        // background-color: coral;
+        width: 50%;
+        height: 50px;
         display: flex;
         justify-content: center;
         align-items: center;
+        gap: 15px;
+
+        .customerDetailsDrop {
+          width: 52%;
+          margin-right: 10px;
+          height: 35px;
+          outline: none;
+          border: none;
+          border-radius: 5px;
+          border: 1px solid lightgrey;
+          // color: lightgrey;
+        }
+      }
+    }
+  }
+
+  //===================== TABLE-CONTENT =============================
+
+  .table {
+    .table-head {
+      background-color: #078080;
+      height: 40px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+
+      span {
         color: white;
+        // font-weight: 800;
+        font-size: 18px;
+      }
+    }
+  }
+  .table-body {
+    // background-color: red;
+    margin-top: 10px;
+    overflow-y: scroll;
+    max-height: 40vh;
+    height: 40vh;
 
-        &.blur{
-            filter: blur(5px);
-        }
-
-        .offcanvasMenu {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 30%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.8);
-        z-index: 1;
-        transition: transform 0.3s ease;
-        }
-
-          &.open{
-            transform: translateX(0);
-          }
-
-          &.closed{
-            transform: translateX(-100%);
-          }
+    &::-webkit-scrollbar {
+      width: 1px;
     }
 
-    //========================= DROPDOWN ====================================
+    &::-webkit-scrollbar-thumb {
+      background-color: #888;
 
-    .container{
-        width: 100%;
-        height: 130px;
-        // background-color: violet;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        .firstInput{
-            width: 99%;
-            // background-color: aqua;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-
-            .DropDowns{
-                width: 50%;
-                height: 60px;
-                // background-color: teal;
-                display: flex;
-                align-items: center;
-                justify-content: space-evenly;
-                margin-bottom: 10px;
-
-                #dropdown option{
-                    height: 100px;
-                }
-                select{
-                    width: 70%;
-                    height: 35px;
-                    outline: none;
-                    border: none;
-                    border-radius: 5px;
-                    border: 1px solid lightgrey;
-                    &::placeholder{
-                        color: lightgrey;
-                    }
-
-                    option{
-                        outline: none;
-                        border: 1px solid lightgrey;
-                        // background-color: red;
-                        font-size: 17px;
-                    }
-                }
-            }
-            .inputField{
-                width: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 15px;
-                input{
-                    width: 50%;
-                    height: 30px;
-                    outline: none;
-                    border: none;
-                    border-radius: 5px;
-                    padding-left: 10px;
-                    border: 1px solid lightgrey;
-
-                    &::placeholder{
-                        color: lightgray;
-                        // padding-left: 10px;
-                    }
-                }
-            }
-        }
-        .secondInput{
-            width: 99%;
-            // background-color: aqua;
-            height: 40px;
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-
-            .selectedoption{
-                // background-color: coral;
-                width: 50%;
-                height: 50px;
-                display: flex;
-                justify-content: space-evenly;
-                align-items: center;
-
-                select{
-                    width: 70%;
-                    height: 35px;
-                    outline: none;
-                    border: none;
-                    border-radius: 5px;
-                    border: 1px solid lightgrey;
-
-                    option{
-                        outline: none;
-                        border: 1px solid lightgrey;
-                        // background-color: red;
-                        font-size: 17px;
-                    }
-                }
-            }
-            .selectedoptions{
-                // background-color: coral;
-                width: 50%;
-                height: 50px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: 15px;
-
-                select{
-                    width: 52%;
-                    margin-right: 10px;
-                    height: 35px;
-                    outline: none;
-                    border: none;
-                    border-radius: 5px;
-                    border: 1px solid lightgrey;
-                    // color: lightgrey;
-
-                    option{
-                        outline: none;
-                        border: 1px solid lightgrey;
-                        // background-color: red;
-                        font-size: 17px;
-                    }
-                }
-            }
-
-        }
+      &:hover {
+        background-color: #555;
+      }
     }
+    table {
+      // background-color: teal;
+      width: 100%;
 
-      //===================== TABLE-CONTENT =============================
+      .secondhead {
+        height: 45px;
+        tr {
+          th {
+            border-radius: 5px;
+          }
+        }
+      }
 
-    .table{
-        .table-head{
-            background-color: #FEC00F;
+      thead {
+        background-color: #eaddcf;
+
+        tr {
+          th.headone {
+            width: 10px;
+            border-radius: 5px;
+          }
+          th.headtwo {
+            width: 100px;
+            // background-color: lightblue;
+            border-radius: 5px;
+          }
+          th.headthree {
+            width: 50px;
+            // background-color: lightblue;
+            border-radius: 5px;
+          }
+          th.headfour {
+            width: 200px;
+            // background-color: lightblue;
+            border-radius: 5px;
             height: 40px;
-            width: 100%;
+          }
+          th.headfive {
+            width: 100px;
+            border-radius: 5px;
+          }
+          th.headsix {
+            width: 100px;
+            border-radius: 5px;
+          }
+          th.headseven {
+            width: 100px;
+            border-radius: 5px;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          // gap: 10px;
+          .tableslno {
             display: flex;
             justify-content: center;
             align-items: center;
-
-            span{
-                color: white;
-                // font-weight: 800;
-                font-size: 18px;
-            }
-        }
-    }
-    .table-body{
-        // background-color: red;
-        margin-top: 10px;
-        overflow-y: scroll;
-        max-height: 40vh;
-        height: 40vh;
-        
-        &::-webkit-scrollbar{
-            width: 1px;
-        }
-
-        &::-webkit-scrollbar-thumb{
-            background-color: #888;
-
-            &:hover{
-                background-color: #555;
-            }
-        }
-        table{
-            // background-color: teal;
+            height: 50px;
             width: 100%;
 
-            thead{
-                // background-color: lightblue;
+            .firsttableno {
+              width: 40px;
+              height: 35px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 16px;
             }
+          }
 
-            tbody{
-                tr{
-                    gap: 10px;
-                    .tableslno{
-                        background-color: white;
-                        
-                        .firsttableno{
-                            background-color: white;
-                            border: 1px solid #B3B3B3;
-                            padding: 9.3px;
-                            border-radius: 5px;
-                            margin-right: 16px;
-                        }
-                    }
-                    
-                    .TableHead{
-                        width: 22%;
-                        .TableSelectOption{
-                            width:100%;
-                            // background-color: red;
-                            cursor: pointer;
-                        }
-                    }
-
-                    .TableHead1{
-                        width: 22%;
-                        height: 10px;
-                        .TableSelectOption1{
-                            width:100%;
-                            cursor: pointer;
-                        }
-                    }
-
-                    .TableHead2{
-                        width: 16%;
-                        height: 10px;
-                        .TableSelectOption2{
-                            width:100%;
-                            // font-size: 5px;
-                            cursor: pointer;
-                        }
-                    }
-                    .TableHead3{
-                        width: 7%;
-                        height: 10px;
-                        .TableSelectOption3{
-                            width:100%;
-                            // font-size: 5px;
-                            cursor: pointer;
-                        }
-                    }
-                    .TableHead4{
-                        width: 7%;
-                        height: 10px;
-                        .TableSelectOption4{
-                            width:100%;
-                            // font-size: 5px;
-                            cursor: pointer;
-                        }
-                    }
-                    .TableHead5{
-                        width:20%;
-                        height: 10px;
-                        .TableSelectOption5{
-                            width:100%;
-                            // font-size: 5px;
-                            cursor: pointer;
-                        }
-                    }
-                    .TableHead6{
-                        width:20%;
-                        height: 10px;
-                        .TableSelectOption6{
-                            width:100%;
-                            // font-size: 5px;
-                            position: relative;
-                            
-                        }
-                        .tableSelectOption6btn{
-                            position: absolute;
-                            margin-top: -2.5%;
-                            margin-left: -8.8%;
-                            width: 17.5%;
-                            height: 30px;
-                            outline: none;
-                            background:none;
-                            border: none;
-                            cursor: pointer;
-                        }
-                    }
-                    .tableslno1{
-                        background-color: white;
-                        
-                        .firsttableno1{
-                            background-color: white;
-                            border: 1px solid #B3B3B3;
-                            padding: 9.3px;
-                            border-radius: 5px;
-                            margin-right: 16px;
-                        }
-                    }
-                    
-                    .TableHead12{
-                        width: 22%;
-                        .TableSelectOption12{
-                            width:100%;
-                            // background-color: red;
-                            cursor: pointer;
-                        }
-                    }
-
-                    .TableHead7{
-                        width: 25%;
-                        height: 10px;
-                        .TableSelectOption7{
-                            width:100%;
-                            cursor: pointer;
-                        }
-                    }
-
-                    .TableHead8{
-                        width: 16%;
-                        height: 10px;
-                        .TableSelectOption8{
-                            width:100%;
-                            // font-size: 5px;
-                            cursor: pointer;
-                        }
-                    }
-                    .TableHead9{
-                        width: 7%;
-                        height: 10px;
-                        .TableSelectOption9{
-                            width:100%;
-                            // font-size: 5px;
-                            cursor: pointer;
-                        }
-                    }
-                    .TableHead0{
-                        width: 7%;
-                        height: 10px;
-                        .TableSelectOption0{
-                            width:100%;
-                            // font-size: 5px;
-                            cursor: pointer;
-                        }
-                    }
-                    .TableHead11{
-                        width:20%;
-                        height: 10px;
-                        .TableSelectOption11{
-                            width:100%;
-                            // font-size: 5px;
-                            cursor: pointer;
-                        }
-                    }
-                    .TableHead6{
-                        width:20%;
-                        height: 10px;
-                        .TableSelectOption6{
-                            width:100%;
-                            // font-size: 5px;
-                            position: relative;
-                            
-                        }
-                        .tableSelectOption6btn{
-                            position: absolute;
-                            margin-top: -2.5%;
-                            margin-left: -8.8%;
-                            width: 17.5%;
-                            height: 30px;
-                            outline: none;
-                            background:none;
-                            border: none;
-                            cursor: pointer;
-                        }
-                    }
-                }
+          .TableHead {
+            width: 22%;
+            .TableSelectOption {
+              width: 100%;
+              // background-color: red;
+              cursor: pointer;
             }
+          }
+
+          .TableHead1 {
+            width: 22%;
+            height: 10px;
+            .TableSelectOption1 {
+              width: 95%;
+              cursor: pointer;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 35px;
+              // margin-top: -10px;
+              border: 1px solid lightgray;
+              // margin-bottom: 6px;
+              border-radius: 5px;
+              margin-left: 5px;
+            }
+          }
+
+          .TableHead2 {
+            width: 16%;
+            height: 10px;
+            .TableSelectOption2 {
+              width: 95%;
+              cursor: pointer;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 35px;
+              // margin-top: -10px;
+              border: 1px solid lightgray;
+              // margin-bottom: 6px;
+              border-radius: 5px;
+              margin-left: 5px;
+            }
+          }
+          .TableHead3 {
+            width: 7%;
+            height: 10px;
+            .TableSelectOption3 {
+              width: 95%;
+              cursor: pointer;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 35px;
+              // margin-top: -10px;
+              border: 1px solid lightgray;
+              // margin-bottom: 6px;
+              border-radius: 5px;
+              margin-left: 5px;
+            }
+          }
+          .TableHead4 {
+            width: 7%;
+            height: 10px;
+            .TableSelectOption4 {
+              width: 100%;
+              // font-size: 5px;
+              cursor: pointer;
+            }
+          }
+          .TableHead5 {
+            width: 20%;
+            height: 10px;
+            .TableSelectOption5 {
+              width: 95%;
+              cursor: pointer;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 35px;
+              // margin-top: -10px;
+              border: 1px solid lightgray;
+              // margin-bottom: 6px;
+              border-radius: 5px;
+              margin-left: 5px;
+            }
+          }
+          .TableHead6 {
+            width: 20%;
+            height: 10px;
+            .TableSelectOption6 {
+              width: 95%;
+              cursor: pointer;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 38px;
+              // margin-top: -10px;
+              border: 1px solid lightgray;
+              // margin-bottom: 6px;
+              border-radius: 5px;
+              margin-left: 5px;
+              outline: none;
+              border: 1px solid lightgray;
+              background: none;
+              color: gray;
+              font-weight: 700;
+            }
+          }
+          .tableslno1 {
+            // background-color: rgb(235, 151, 151);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            width: 100%;
+
+            .firsttableno1 {
+              // background-color: rgb(238, 38, 38);
+              width: 40px;
+              height: 35px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 16px;
+            }
+          }
+
+          .TableHead12 {
+            width: 22%;
+            .TableSelectOption12 {
+              // width:100%;
+              // background-color: red;
+              cursor: pointer;
+            }
+          }
+
+          .TableHead7 {
+            width: 100%;
+            // height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            // margin-top: -20px;
+            // gap: 0px;
+            .TableSelectOption7 {
+              width: 95%;
+              cursor: pointer;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 35px;
+              // margin-top: -10px;
+              border: 1px solid lightgray;
+              margin-bottom: 6px;
+              border-radius: 5px;
+            }
+          }
+
+          .TableHead8 {
+            width: 20%;
+            height: 10px;
+
+            .TableSelectOption8 {
+              width: 95%;
+              cursor: pointer;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 38px;
+              // margin-top: -10px;
+              border: 1px solid lightgray;
+              // margin-bottom: 6px;
+              border-radius: 5px;
+              margin-left: 5px;
+            }
+          }
+          .TableHead9 {
+            width: 5%;
+            height: 10px;
+            // display: flex;
+            //     justify-content: center;
+            //     align-items: center;
+            .TableSelectOption9 {
+              width: 95%;
+              cursor: pointer;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 35px;
+              // margin-top: -10px;
+              border: 1px solid lightgray;
+              // margin-bottom: 6px;
+              border-radius: 5px;
+            }
+          }
+          .TableHead0 {
+            width: 5%;
+            height: 10px;
+            .TableSelectOption0 {
+              width: 95%;
+              cursor: pointer;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 35px;
+              // margin-top: -10px;
+              border: 1px solid lightgray;
+              // margin-bottom: 6px;
+              border-radius: 5px;
+            }
+          }
+          .TableHead11 {
+            width: 23%;
+            height: 10px;
+
+            .TableSelectOption11 {
+              width: 95%;
+              cursor: pointer;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 35px;
+              // margin-top: -10px;
+              border: 1px solid lightgray;
+              // margin-bottom: 6px;
+              border-radius: 5px;
+              margin-left: 5px;
+            }
+          }
+          .TableHead6 {
+            width: 20%;
+            height: 10px;
+            .TableSelectOption6 {
+              // width:100%;
+              // font-size: 5px;
+              position: relative;
+            }
+            .tableSelectOption6btn {
+              position: absolute;
+              margin-top: -2.5%;
+              margin-left: -8.8%;
+              width: 17.5%;
+              height: 30px;
+              outline: none;
+              background: none;
+              border: none;
+              cursor: pointer;
+            }
+          }
         }
+      }
     }
+  }
 
-    //============================= BUTTONS =====================================
+  //============================= BUTTONS =====================================
 
+  .savebutton {
+    // background-color: red;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 50px;
+    gap: 15px;
+    padding-right: 10px;
 
-    .savebutton{
-        // background-color: red;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        height: 50px;
-        gap: 15px;
-        padding-right: 10px;
+    button {
+      appearance: none;
+      background-color: transparent;
+      border: 1px solid #078080;
+      border-radius: 10px;
+      box-sizing: border-box;
+      color: #3b3b3b;
+      cursor: pointer;
+      display: inline-block;
+      font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+      font-size: 16px;
+      font-weight: 600;
+      line-height: normal;
+      margin: 0;
+      //   min-height: 3.75em;
+      min-width: 0;
+      outline: none;
+      //   padding: 1em 2.3em;
+      width: 90px;
+      height: 40px;
+      text-align: center;
+      text-decoration: none;
+      transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      will-change: transform;
 
-        button{
-            outline: none;
-            border: none;
-            border: 1px solid lightgrey;
-            height: 35px;
-            width: 100px;
-            border-radius: 5px;
+      &:active {
+        box-shadow: none;
+        transform: translateY(0);
+      }
 
-            &:nth-child(1){
-                background-color: #FEC00F;
-                color: white;
+      &:hover {
+        color: #fff;
+        background-color: #078080;
+        box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+        transform: translateY(-2px);
+      }
 
-                &:hover{
-                    background-color: white;
-                    color: black;
-                }
-            }
-
-            &:nth-child(2){
-                background-color: rgb(0, 0, 0);
-                color: white;
-
-                &:hover{
-                    background-color: rgb(255, 255, 255);
-                    color: rgb(0, 0, 0);
-                }
-            }
-
-            &:nth-child(3){
-                background-color: green;
-                color: white;
-
-                &:hover{
-                    background-color: white;
-                    color: black;
-                }
-            }
-
-            &:nth-child(4){
-                background-color: red;
-                color: white;
-
-                &:hover{
-                    background-color: white;
-                    color: black;
-                }
-            }
-        }
+      & :disabled {
+        pointer-events: none;
+      }
     }
+  }
 }
