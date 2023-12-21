@@ -13,13 +13,24 @@ const App = () => {
   const [selectValue, setSelectValue] = useState("");
   const [selectsValue, setSelectsValue] = useState("");
   const [showPopup, setShowPopup] = useState(false);
-  const [tableRows, setTableRows] = useState([
+  const [serviceTableRows, setServiceTableRows] = useState([
     {
-      delegateName: "",
+      serviceName: null,
+      nameInCertificate: "",
+      requestedDateTime: "",
+      unit: "",
+      qty: "",
+      lpoReferenceNo: "",
+    },
+  ]);
+
+  const [delegateTableRows, setDelegateTableRows] = useState([
+    {
+      delegateName: null,
       address: "",
       email: "",
-      pickup: "",
-      drop: "",
+      pickup: null,
+      drop: null,
       exception: "",
     },
   ]);
@@ -38,38 +49,88 @@ const App = () => {
   };
 
   const handleTableRowChange = (event, index, field) => {
-    // Show the popup when the "exception" field is clicked
     if (field === "exception") {
       setShowPopup(true);
     }
-  
-    const updatedRows = [...tableRows];
-  
-    // Update the row based on the field
-    if (field === "address" || field === "email") {
-      updatedRows[index][field] = event.target.value;
+
+    let updatedRows;
+
+    if (field === "delegateName") {
+      if (event) {
+        updatedRows = [...delegateTableRows];
+        updatedRows[index][field] = event;
+      } else {
+        updatedRows = delegateTableRows.filter((_, i) => i !== index);
+      }
+    } else if (field === "serviceName") {
+      if (!serviceTableRows[index]) {
+        serviceTableRows[index] = {
+          serviceName: null,
+          nameInCertificate: "",
+          requestedDateTime: "",
+          unit: "",
+          qty: "",
+          lpoReferenceNo: "",
+        };
+      }
+
+      serviceTableRows[index][field] = event;
+      updatedRows = [...serviceTableRows];
     } else {
-      // For Select components, store the entire option object
-      updatedRows[index][field] = event;
+      updatedRows = [...serviceTableRows];
+      if (field === "address" || field === "email") {
+        updatedRows[index][field] = event.target.value;
+      } else {
+        updatedRows[index][field] = event;
+      }
     }
-  
-    // Check if the user is typing in the last row
-    if (index === updatedRows.length - 1 && updatedRows[index][field] !== "") {
-      // Add a new empty row
-      updatedRows.push({
-        delegateName: "",
-        address: "",
-        email: "",
-        pickup: "",
-        drop: "",
-        exception: "",
-      });
+    if (
+      index === updatedRows.length - 1 &&
+      (field === "delegateName" || updatedRows[index][field] !== "")
+    ) {
+      const newRow =
+        field === "delegateName"
+          ? {
+              delegateName: null,
+              address: "",
+              email: "",
+              pickup: null,
+              drop: null,
+              exception: "",
+            }
+          : {
+              serviceName: null,
+              nameInCertificate: "",
+              requestedDateTime: "",
+              unit: "",
+              qty: "",
+              lpoReferenceNo: "",
+            };
+
+      updatedRows.push(newRow);
+
+      if (field !== "delegateName") {
+        setServiceTableRows(updatedRows);
+        const nextRow = {
+          serviceName: null,
+          nameInCertificate: "",
+          requestedDateTime: "",
+          unit: "",
+          qty: "",
+          lpoReferenceNo: "",
+        };
+        setServiceTableRows((prevRows) => [...prevRows, nextRow]);
+      } else {
+        setDelegateTableRows(updatedRows);
+      }
+    } else {
+      if (field === "delegateName") {
+        setDelegateTableRows(updatedRows);
+      } else {
+        setServiceTableRows(updatedRows);
+      }
     }
-  
-    // Update the state with the modified rows
-    setTableRows(updatedRows);
   };
-  
 
   const serviceTableSelectRefs = useRef([]);
   const setServiceTableSelectRef = (index, ref) => {
@@ -88,57 +149,69 @@ const App = () => {
     console.log("Popup :", popup);
   };
   const handleSaveButtonClick = () => {
+    let serviceRowCount = 2;
+    let delegateRowCount = 3;
+
+    if (selectsValue === "SomeCustomerType") {
+      serviceRowCount = 2;
+      delegateRowCount = 3;
+    }
+
+    const serviceTableData = serviceTableRows.slice(0, serviceRowCount);
+
+    const delegateTableData = delegateTableRows.slice(0, delegateRowCount);
+
     const requestData = {
       requestId: document.getElementById("requestIdInput").value,
       customerName: selectedValue,
       serviceType: selectValue,
       customerType: selectsValue,
-      serviceTableData: tableRows.slice(0, -1),
-      delegateTableData: tableRows.map((row) => ({
-        delegateName: row.delegateName ? row.delegateName.value : "",
-        address: row.address,
-        email: row.email,
-        pickup: row.pickup ? row.pickup.value : "",
-        drop: row.drop ? row.drop.value : "",
-        exception: row.exception ? row.exception.value : "",
-      })),
+      serviceTableData,
+      delegateTableData,
     };
 
-    setSavedData([...savedData, requestData]);
+    setServiceTableRows(
+      Array.from({ length: serviceRowCount }, () => ({
+        serviceName: null,
+        nameInCertificate: "",
+        requestedDateTime: "",
+        unit: "",
+        qty: "",
+        lpoReferenceNo: "",
+      }))
+    );
 
-    // Clear data from tables and input fields
+    setDelegateTableRows(
+      Array.from({ length: delegateRowCount }, () => ({
+        delegateName: null,
+        address: "",
+        email: "",
+        pickup: null,
+        drop: null,
+        exception: "",
+      }))
+    );
+
+    setSavedData([...savedData, requestData]);
     setSelectedValue("");
     setSelectValue("");
     setSelectsValue("");
-    setTableRows([
-      {
-        delegateName: "",
-        address: "",
-        email: "",
-        pickup: "",
-        drop: "",
-        exception: "",
-      },
-    ]);
+
     document.getElementById("requestIdInput").value = "";
 
-    // Clear the Select components in the service table
     serviceTableSelectRefs.current.forEach((selectRef) => {
       selectRef.setValue(null);
     });
 
-    // Clear additional input fields in the service details table
-    document.querySelector(".TableSelectOption7").value = ""; // Name in Certificate
-    document.querySelector(".TableSelectOption8").value = ""; // Requested Date Time
-    document.querySelector(".TableSelectOption9").value = ""; // Unit
-    document.querySelector(".TableSelectOption0").value = ""; // Qty
-    document.querySelector(".TableSelectOption11").value = ""; // LPO Reference No
-
+    document.querySelector(".TableSelectOption7").value = "";
+    document.querySelector(".TableSelectOption8").value = "";
+    document.querySelector(".TableSelectOption9").value = "";
+    document.querySelector(".TableSelectOption0").value = "";
+    document.querySelector(".TableSelectOption11").value = "";
     alert("Your data is saved!");
-
   };
 
-  console.log("Saveddat",savedData);
+  console.log("Saveddat", savedData);
 
   const thStyle = {
     fontSize: "12px",
@@ -185,35 +258,35 @@ const App = () => {
           <div className="DropDowns">
             <label htmlFor="dropdown">Customer Name :</label>
             <Select
-                    className="customerDetailsDrop"
-                    options={CustomerNames}
-                    placeholder="Service Name"
-                    ref={(ref) => setServiceTableSelectRef(0, ref)} // Pass the index of the Select component
-                  />
+              className="customerDetailsDrop"
+              options={CustomerNames}
+              placeholder="Service Name"
+              ref={(ref) => setServiceTableSelectRef(0, ref)}
+            />
           </div>
         </div>
         <div className="secondInput">
           <div className="selectedoptions">
             <label htmlFor="dropdown">Service Type :</label>
             <Select
-                    className="customerDetailsDrop"
-                    options={serviceTypes}
-                    placeholder="Service Name"
-                    ref={(ref) => setServiceTableSelectRef(0, ref)} // Pass the index of the Select component
-                  />
+              className="customerDetailsDrop"
+              options={serviceTypes}
+              placeholder="Service Name"
+              ref={(ref) => setServiceTableSelectRef(0, ref)}
+            />
           </div>
           <div className="selectedoption">
             <label htmlFor="dropdown">Customer Types :</label>
             <Select
-                    className="customerDetailsDrop"
-                    options={CustomerOptions}
-                    placeholder="Service Name"
-                    ref={(ref) => setServiceTableSelectRef(0, ref)} // Pass the index of the Select component
-                  />
+              className="customerDetailsDrop"
+              options={CustomerOptions}
+              placeholder="Service Name"
+              ref={(ref) => setServiceTableSelectRef(0, ref)}
+            />
           </div>
         </div>
       </div>
-          {/* First Table */}
+      {/* First Table */}
       <div className="table">
         <div className="table-head">
           <span>Service Details</span>
@@ -221,7 +294,7 @@ const App = () => {
 
         <div className="table-body">
           <table>
-            <thead >
+            <thead>
               <tr>
                 <th className="headone">Sl.No</th>
                 <th className="headtwo">Service Name</th>
@@ -232,58 +305,66 @@ const App = () => {
                 <th className="headseven">LPO Reference No</th>
               </tr>
             </thead>
-            <tbody >
-              <tr>
-                <td className="tableslno1" style={thStyle}>
-                  <span className="firsttableno1">1</span>
-                </td>
-                <td className="TableHead12" style={thStyle}>
-                  <Select
-                    className="TableSelectOption12"
-                    options={serviceNames}
-                    placeholder="Service Name"
-                    ref={(ref) => setServiceTableSelectRef(0, ref)} // Pass the index of the Select component
-                  />
-                </td>
-                <td className="TableHead7" style={thStyle}>
-                  <input
-                    type="text"
-                    className="TableSelectOption7"
-                    placeholder="Name in Certificate"
-                  />
-                </td>
-                <td className="TableHead8" style={thStyle}>
-                  <input
-                    type="date"
-                    className="TableSelectOption8"
-                    placeholder="Requested Date Time"
-                  />
-                </td>
-                <td className="TableHead9" style={thStyle}>
-                  <input
-                    type="text"
-                    className="TableSelectOption9"
-                    options={option}
-                    placeholder="Unit"
-                  />
-                </td>
-                <td className="TableHead0" style={thStyle}>
-                  <input
-                    type="text"
-                    className="TableSelectOption0"
-                    options={option}
-                    placeholder="Qty"
-                  />
-                </td>
-                <td className="TableHead11" style={thStyle}>
-                  <input
-                    type="text"
-                    className="TableSelectOption11"
-                    options={option}
-                    placeholder="LPO Reference No"
-                  />
-                </td>
-              </tr>
+            <tbody>
+              {serviceTableRows.map((row, index) => (
+                <tr key={index}>
+                  <td className="tableslno1" style={thStyle}>
+                    <span className="firsttableno1">{index + 1}</span>
+                  </td>
+                  <td className="TableHead12" style={thStyle}>
+                    <Select
+                      className="TableSelectOption12"
+                      options={serviceNames}
+                      placeholder="Service Name"
+                      onChange={(selectedOption) =>
+                        handleTableRowChange(
+                          selectedOption,
+                          index,
+                          "serviceName"
+                        )
+                      }
+                    />
+                  </td>
+                  <td className="TableHead7" style={thStyle}>
+                    <input
+                      type="text"
+                      className="TableSelectOption7"
+                      placeholder="Name in Certificate"
+                    />
+                  </td>
+                  <td className="TableHead8" style={thStyle}>
+                    <input
+                      type="date"
+                      className="TableSelectOption8"
+                      placeholder="Requested Date Time"
+                    />
+                  </td>
+                  <td className="TableHead9" style={thStyle}>
+                    <input
+                      type="text"
+                      className="TableSelectOption9"
+                      options={option}
+                      placeholder="Unit"
+                    />
+                  </td>
+                  <td className="TableHead0" style={thStyle}>
+                    <input
+                      type="text"
+                      className="TableSelectOption0"
+                      options={option}
+                      placeholder="Qty"
+                    />
+                  </td>
+                  <td className="TableHead11" style={thStyle}>
+                    <input
+                      type="text"
+                      className="TableSelectOption11"
+                      options={option}
+                      placeholder="LPO Reference No"
+                    />
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
           {showPopup && (
@@ -292,7 +373,7 @@ const App = () => {
         </div>
       </div>
 
-        {/* Second-Table */}
+      {/* Second-Table */}
 
       <div className="table">
         <div className="table-head">
@@ -313,7 +394,7 @@ const App = () => {
               </tr>
             </thead>
             <tbody>
-              {tableRows.map((row, index) => (
+              {delegateTableRows.map((row, index) => (
                 <tr key={index}>
                   <th className="tableslno" style={thStyle}>
                     <span className="firsttableno">{index + 1}</span>
@@ -388,7 +469,12 @@ const App = () => {
                     />
                   </th>
                   <th className="TableHead6" style={thStyle}>
-                    <button className="TableSelectOption6" onClick={() => handleTableRowChange(null, index, "exception")}>
+                    <button
+                      className="TableSelectOption6"
+                      onClick={() =>
+                        handleTableRowChange(null, index, "exception")
+                      }
+                    >
                       Add Exception
                     </button>
                   </th>

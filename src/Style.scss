@@ -173,14 +173,19 @@
         // font-weight: 800;
         font-size: 18px;
       }
+
+      div{
+
+      }
     }
   }
   .table-body {
     // background-color: red;
     margin-top: 10px;
     overflow-y: scroll;
-    max-height: 40vh;
+    max-height: 400px;
     height: 40vh;
+    padding-bottom: 20px;
 
     &::-webkit-scrollbar {
       width: 1px;
